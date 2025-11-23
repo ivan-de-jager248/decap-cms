@@ -4,7 +4,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { translate } from 'react-polyglot';
 import { Link } from 'react-router-dom';
-import { components, buttons, shadows } from 'decap-cms-ui-default';
+import { components, buttons, shadows, Icon } from 'decap-cms-ui-default';
 
 const CollectionTopContainer = styled.div`
   ${components.cardTop};
@@ -19,6 +19,10 @@ const CollectionTopRow = styled.div`
 
 const CollectionTopHeading = styled.h1`
   ${components.cardTopHeading};
+
+  @media (max-width: 800px) {
+    font-size: 20px;
+  }
 `;
 
 const CollectionTopNewButton = styled(Link)`
@@ -28,6 +32,37 @@ const CollectionTopNewButton = styled(Link)`
   ${buttons.gray};
 
   padding: 0 30px;
+
+  .new-button-full {
+    display: inline;
+  }
+  .new-button-short {
+    display: none;
+  }
+
+  @media (max-width: 800px) {
+    padding: 0 15px;
+    .new-button-full {
+      display: none;
+    }
+    .new-button-short {
+      display: inline;
+    }
+  }
+`;
+
+const HamburgerButton = styled.button`
+  ${buttons.button};
+  ${buttons.default};
+  ${buttons.gray};
+  padding: 8px 12px;
+  margin-right: 12px;
+  display: none;
+  align-items: center;
+
+  @media (max-width: 800px) {
+    display: flex;
+  }
 `;
 
 const CollectionTopDescription = styled.p`
@@ -47,7 +82,7 @@ function getCollectionProps(collection) {
   };
 }
 
-function CollectionTop({ collection, newEntryUrl, t }) {
+function CollectionTop({ collection, newEntryUrl, t, onSidebarToggle }) {
   const { collectionLabel, collectionLabelSingular, collectionDescription } = getCollectionProps(
     collection,
     t,
@@ -56,12 +91,22 @@ function CollectionTop({ collection, newEntryUrl, t }) {
   return (
     <CollectionTopContainer>
       <CollectionTopRow>
-        <CollectionTopHeading>{collectionLabel}</CollectionTopHeading>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {onSidebarToggle && (
+            <HamburgerButton onClick={onSidebarToggle}>
+              <Icon type="list" size="small" />
+            </HamburgerButton>
+          )}
+          <CollectionTopHeading>{collectionLabel}</CollectionTopHeading>
+        </div>
         {newEntryUrl ? (
           <CollectionTopNewButton to={newEntryUrl}>
-            {t('collection.collectionTop.newButton', {
-              collectionLabel: collectionLabelSingular || collectionLabel,
-            })}
+            <span className="new-button-full">
+              {t('collection.collectionTop.newButton', {
+                collectionLabel: collectionLabelSingular || collectionLabel,
+              })}
+            </span>
+            <span className="new-button-short">{t('collection.collectionTop.newShort')}</span>
           </CollectionTopNewButton>
         ) : null}
       </CollectionTopRow>
@@ -76,6 +121,7 @@ CollectionTop.propTypes = {
   collection: ImmutablePropTypes.map.isRequired,
   newEntryUrl: PropTypes.string,
   t: PropTypes.func.isRequired,
+  onSidebarToggle: PropTypes.func,
 };
 
 export default translate()(CollectionTop);

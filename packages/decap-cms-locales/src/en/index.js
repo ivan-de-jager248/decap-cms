@@ -44,6 +44,7 @@ const en = {
       sortBy: 'Sort by',
       viewAs: 'View as',
       newButton: 'New %{collectionLabel}',
+      newShort: 'New',
       ascending: 'Ascending',
       descending: 'Descending',
       searchResults: 'Search Results for "%{searchTerm}"',

@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import copyToClipboard from 'copy-text-to-clipboard';
 import { isAbsolutePath } from 'decap-cms-lib-util';
-import { buttons, shadows, zIndex } from 'decap-cms-ui-default';
+import { buttons, shadows, zIndex, Icon } from 'decap-cms-ui-default';
 
 import { FileUploadButton } from '../UI';
 
@@ -12,9 +12,35 @@ const styles = {
   button: css`
     ${buttons.button};
     ${buttons.default};
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     margin-left: 15px;
     margin-right: 2px;
+    gap: 6px;
+
+    .button-text {
+      display: inline;
+    }
+
+    .button-icon {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 10px;
+      min-width: 40px;
+
+      .button-text {
+        display: none;
+      }
+
+      .button-icon {
+        display: inline-flex;
+      }
+    }
 
     &[disabled] {
       ${buttons.disabled};
@@ -120,8 +146,9 @@ export class CopyToClipBoardButton extends React.Component {
     const { disabled } = this.props;
 
     return (
-      <ActionButton disabled={disabled} onClick={this.handleCopy}>
-        {this.getTitle()}
+      <ActionButton disabled={disabled} onClick={this.handleCopy} title={this.getTitle()}>
+        <span className="button-text">{this.getTitle()}</span>
+        <Icon type="link" size="small" className="button-icon" />
       </ActionButton>
     );
   }

@@ -319,9 +319,12 @@ export function selectIdentifier(collection: Collection) {
 }
 
 export function selectInferredField(collection: Collection, fieldName: string) {
-  if (fieldName === 'title' && collection.get('identifier_field')) {
-    return selectIdentifier(collection);
+  if (fieldName === 'author' && collection.get('github_open_authoring')) {
+    return 'author';
   }
+
+  if (!INFERABLE_FIELDS) return null;
+
   const inferableField = (
     INFERABLE_FIELDS as Record<
       string,

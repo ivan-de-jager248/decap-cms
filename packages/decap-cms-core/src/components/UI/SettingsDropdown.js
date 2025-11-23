@@ -38,6 +38,25 @@ const AppHeaderSiteLink = styled.a`
   font-weight: 400;
   color: #7b8290;
   padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+
+  .site-link-text {
+    display: inline;
+  }
+
+  .site-link-icon {
+    display: none;
+  }
+
+  @media (max-width: 800px) {
+    .site-link-text {
+      display: none;
+    }
+    .site-link-icon {
+      display: inline-flex;
+    }
+  }
 `;
 
 const AppHeaderTestRepoIndicator = styled.a`
@@ -72,8 +91,9 @@ function SettingsDropdown({ displayUrl, isTestRepo, imageUrl, onLogoutClick, t }
         </AppHeaderTestRepoIndicator>
       )}
       {displayUrl ? (
-        <AppHeaderSiteLink href={displayUrl} target="_blank">
-          {stripProtocol(displayUrl)}
+        <AppHeaderSiteLink href={displayUrl} target="_blank" rel="noopener noreferrer">
+          <span className="site-link-text">{stripProtocol(displayUrl)}</span>
+          <Icon type="new-tab" size="small" className="site-link-icon" />
         </AppHeaderSiteLink>
       ) : null}
       <Dropdown

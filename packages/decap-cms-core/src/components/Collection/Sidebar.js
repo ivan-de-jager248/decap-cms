@@ -27,6 +27,32 @@ const SidebarContainer = styled.aside`
   max-height: calc(100vh - 112px);
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 800px) {
+    display: ${props => (props.isOpen ? 'flex' : 'none')};
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    max-height: 100vh;
+    z-index: 300;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+const MobileCloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: ${colors.textLead};
+  
+  @media (max-width: 800px) {
+    display: block;
+  }
 `;
 
 const SidebarHeading = styled.h2`
@@ -75,6 +101,8 @@ export class Sidebar extends React.Component {
     searchTerm: PropTypes.string,
     filterTerm: PropTypes.string,
     t: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool,
+    onToggle: PropTypes.func,
   };
 
   componentDidMount() {
@@ -110,15 +138,21 @@ export class Sidebar extends React.Component {
   };
 
   render() {
-    const { collections, collection, isSearchEnabled, searchTerm, t, filterTerm } = this.props;
+    const { collections, collection, isSearchEnabled, searchTerm, filterTerm, t, isOpen, onToggle } =
+      this.props;
     return (
-      <SidebarContainer>
+      <SidebarContainer isOpen={isOpen}>
+        {isOpen && (
+          <MobileCloseButton onClick={onToggle}>
+            <Icon type="close" size="small" />
+          </MobileCloseButton>
+        )}
         <SidebarHeading>{t('collection.sidebar.collections')}</SidebarHeading>
         {isSearchEnabled && (
           <CollectionSearch
-            searchTerm={searchTerm}
             collections={collections}
             collection={collection}
+            searchTerm={searchTerm}
             onSubmit={(query, collection) => searchCollections(query, collection)}
           />
         )}

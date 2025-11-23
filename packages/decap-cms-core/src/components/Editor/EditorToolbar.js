@@ -28,6 +28,10 @@ const styles = {
   `,
   buttonMargin: css`
     margin: 0 10px;
+
+    @media (max-width: 800px) {
+      margin: 0;
+    }
   `,
   toolbarSection: css`
     height: 100%;
@@ -80,6 +84,10 @@ const DropdownButton = styled(StyledDropdownButton)`
   @media (max-width: 1200px) {
     padding-left: 10px;
   }
+  @media (max-width: 800px) {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
 `;
 
 const ToolbarContainer = styled.div`
@@ -89,12 +97,17 @@ const ToolbarContainer = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  min-width: 800px;
   z-index: ${zIndex.zIndex300};
   background-color: #fff;
   height: 66px;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 800px) {
+    height: auto;
+    min-height: 66px;
+    flex-wrap: wrap;
+  }
 `;
 
 const ToolbarSectionMain = styled.div`
@@ -103,15 +116,33 @@ const ToolbarSectionMain = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
+
+  @media (max-width: 800px) {
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0 5px;
+  }
 `;
 
 const ToolbarSubSectionFirst = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  @media (max-width: 800px) {
+    width: 100%;
+    justify-content: space-between;
+  }
 `;
 
 const ToolbarSubSectionLast = styled(ToolbarSubSectionFirst)`
   justify-content: flex-end;
+
+  @media (max-width: 800px) {
+    width: 100%;
+    margin-top: 5px;
+  }
 `;
 
 const ToolbarSectionBackLink = styled(Link)`
@@ -124,12 +155,22 @@ const ToolbarSectionBackLink = styled(Link)`
   &:focus {
     background-color: #f1f2f4;
   }
+
+  @media (max-width: 800px) {
+    padding: 0 12px;
+    flex-shrink: 0;
+  }
 `;
 
 const ToolbarSectionMeta = styled.div`
   ${styles.toolbarSection};
   border-left-width: 1px;
   padding: 0 7px;
+
+  @media (max-width: 800px) {
+    border-left-width: 0;
+    padding: 0 5px;
+  }
 `;
 
 const ToolbarDropdown = styled(Dropdown)`
@@ -137,6 +178,13 @@ const ToolbarDropdown = styled(Dropdown)`
 
   ${Icon} {
     color: ${colorsRaw.teal};
+  }
+
+  @media (max-width: 800px) {
+    button {
+      padding: 6px 10px;
+      font-size: 13px;
+    }
   }
 `;
 
@@ -150,10 +198,19 @@ const BackArrow = styled.div`
 const BackCollection = styled.div`
   color: ${colors.textLead};
   font-size: 14px;
+
+  @media (max-width: 800px) {
+    display: none;
+  }
 `;
 
 const BackStatus = styled.div`
   margin-top: 6px;
+
+  @media (max-width: 800px) {
+    font-size: 12px;
+    margin-top: 4px;
+  }
 `;
 
 const BackStatusUnchanged = styled(BackStatus)`
@@ -173,6 +230,12 @@ const ToolbarButton = styled.button`
 
   @media (max-width: 1200px) {
     padding: 0 10px;
+  }
+
+  @media (max-width: 800px) {
+    margin: 5px 5px;
+    padding: 6px 10px;
+    font-size: 13px;
   }
 `;
 
@@ -218,6 +281,11 @@ const PreviewButtonContainer = styled.div`
   ${Icon} {
     position: relative;
     top: 1px;
+  }
+
+  @media (max-width: 800px) {
+    margin-right: 5px;
+    font-size: 13px;
   }
 `;
 

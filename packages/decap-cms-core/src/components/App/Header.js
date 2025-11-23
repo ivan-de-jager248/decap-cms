@@ -47,7 +47,7 @@ function AppHeader(props) {
 const AppHeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
-  min-width: 800px;
+  width: 100%;
   max-width: 1440px;
   padding: 0 12px;
   margin: 0 auto;
@@ -67,6 +67,16 @@ const AppHeaderButton = styled.button`
   ${Icon} {
     margin-right: 4px;
     color: #b3b9c4;
+  }
+
+  @media (max-width: 800px) {
+    padding: 16px 12px;
+    .header-link-label {
+      display: none;
+    }
+    ${Icon} {
+      margin-right: 0;
+    }
   }
 
   &:hover,
@@ -105,6 +115,26 @@ const AppHeaderQuickNewButton = styled(StyledDropdownButton)`
 
   &:after {
     top: 11px;
+  }
+
+  .quick-add-icon {
+    display: none;
+  }
+
+  @media (max-width: 800px) {
+    padding: 0 12px;
+    margin-right: 4px;
+
+    .quick-add-label {
+      display: none;
+    }
+    .quick-add-icon {
+      display: block;
+      color: #7b8290;
+    }
+    &:after {
+      display: none;
+    }
   }
 `;
 
@@ -206,14 +236,14 @@ class Header extends React.Component {
                   isActive={(match, location) => location.pathname.startsWith('/collections/')}
                 >
                   <Icon type="page" />
-                  {t('app.header.content')}
+                  <span className="header-link-label">{t('app.header.content')}</span>
                 </AppHeaderNavLink>
               </li>
               {hasWorkflow && (
                 <li>
                   <AppHeaderNavLink to="/workflow" activeClassName="header-link-active">
                     <Icon type="workflow" />
-                    {t('app.header.workflow')}
+                    <span className="header-link-label">{t('app.header.workflow')}</span>
                   </AppHeaderNavLink>
                 </li>
               )}
@@ -221,7 +251,7 @@ class Header extends React.Component {
                 <li>
                   <AppHeaderButton onClick={openMediaLibrary}>
                     <Icon type="media-alt" />
-                    {t('app.header.media')}
+                    <span className="header-link-label">{t('app.header.media')}</span>
                   </AppHeaderButton>
                 </li>
               )}
@@ -231,7 +261,10 @@ class Header extends React.Component {
             {creatableCollections.size > 0 && (
               <Dropdown
                 renderButton={() => (
-                  <AppHeaderQuickNewButton> {t('app.header.quickAdd')}</AppHeaderQuickNewButton>
+                  <AppHeaderQuickNewButton>
+                    <span className="quick-add-label">{t('app.header.quickAdd')}</span>
+                    <Icon type="add" size="small" className="quick-add-icon" />
+                  </AppHeaderQuickNewButton>
                 )}
                 dropdownTopOverlap="30px"
                 dropdownWidth="160px"

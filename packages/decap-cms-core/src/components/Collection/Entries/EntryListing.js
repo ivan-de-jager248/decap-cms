@@ -16,6 +16,10 @@ const CardsGrid = styled.ul`
   margin-left: -12px;
   margin-top: 16px;
   margin-bottom: 16px;
+
+  @media (max-width: 800px) {
+    margin-left: 0;
+  }
 `;
 
 class EntryListing extends React.Component {

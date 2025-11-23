@@ -31,6 +31,10 @@ const CollectionContainer = styled.div`
 
 const CollectionMain = styled.main`
   padding-left: 280px;
+
+  @media (max-width: 800px) {
+    padding-left: 0;
+  }
 `;
 
 const SearchResultContainer = styled.div`
@@ -55,10 +59,18 @@ export class Collection extends React.Component {
     onSortClick: PropTypes.func.isRequired,
   };
 
+  state = {
+    sidebarOpen: false,
+  };
+
   componentDidMount() {
     // Manually validate PropTypes - React 19 breaking change
     PropTypes.checkPropTypes(Collection.propTypes, this.props, 'prop', 'Collection');
   }
+
+  handleSidebarToggle = () => {
+    this.setState(state => ({ sidebarOpen: !state.sidebarOpen }));
+  };
 
   renderEntriesCollection = () => {
     const { collection, filterTerm, viewStyle } = this.props;
@@ -120,6 +132,8 @@ export class Collection extends React.Component {
           isSearchEnabled={isSearchEnabled}
           searchTerm={searchTerm}
           filterTerm={filterTerm}
+          isOpen={this.state.sidebarOpen}
+          onToggle={this.handleSidebarToggle}
         />
         <CollectionMain>
           {isSearchResults ? (
@@ -130,7 +144,11 @@ export class Collection extends React.Component {
             </SearchResultContainer>
           ) : (
             <>
-              <CollectionTop collection={collection} newEntryUrl={newEntryUrl} />
+              <CollectionTop
+                collection={collection}
+                newEntryUrl={newEntryUrl}
+                onSidebarToggle={this.handleSidebarToggle}
+              />
               <CollectionControls
                 viewStyle={viewStyle}
                 onChangeViewStyle={onChangeViewStyle}

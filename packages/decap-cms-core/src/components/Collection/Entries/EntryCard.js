@@ -16,6 +16,11 @@ const ListCard = styled.li`
   margin-left: 12px;
   margin-bottom: 10px;
   overflow: hidden;
+
+  @media (max-width: 800px) {
+    width: 100%;
+    margin-left: 0;
+  }
 `;
 
 const ListCardLink = styled(Link)`
@@ -35,6 +40,11 @@ const GridCard = styled.li`
   overflow: hidden;
   margin-left: 12px;
   margin-bottom: 16px;
+
+  @media (max-width: 800px) {
+    flex: 0 0 100%;
+    margin-left: 0;
+  }
 `;
 
 const GridCardLink = styled(Link)`

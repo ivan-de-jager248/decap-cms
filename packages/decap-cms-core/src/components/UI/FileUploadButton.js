@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from 'decap-cms-ui-default';
 
 export function FileUploadButton({ label, imagesOnly, onChange, disabled, className }) {
   return (
     <label tabIndex={'0'} className={`nc-fileUploadButton ${className || ''}`}>
-      <span>{label}</span>
+      <span className="button-text">{label}</span>
+      <Icon type="add" size="small" className="button-icon" />
       <input
         type="file"
         accept={imagesOnly ? 'image/*' : '*/*'}
